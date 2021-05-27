@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+  body{
+    background-color: lightgrey;
+    font-family: "Lucida Console";
+}
+</style>
+</head>
+<body ng-app="myApp">
+
+Goto Particular Page :
+<select ng-model="myVar">
+  <option value="SI">Simple Interest
+  <option value="CI">Compound Interest(Annually)
+</select>
+
+<hr>
+<div ng-switch="myVar">
+  <div ng-switch-when="SI">
+     <div ng-controller="SICtrl" align = "center" class = "absolute">
+        <table>
+          <tr>
+            <td>Principal = </td>
+            <td><input ng-model="P" /></td>
+          </tr>
+          <tr>
+            <td>Number of Years = </td>
+            <td><input ng-model="N" /></td>
+          </tr>
+          <tr>
+            <td>Rate of Interest = </td>
+            <td><input ng-model="R" /></td>
+          </tr>
+        </table>
+        <br>
+        <b class="result">Simple Interest = {{calculate1()}}</b>
+      </div>
+  </div>
+  <div ng-switch-when="CI">
+     <div ng-controller="CICtrl" align = "center" class = "absolute">
+        <table>
+          <tr>
+            <td>Principal = </td>
+            <td><input ng-model="P" /></td>
+          </tr>
+          <tr>
+            <td>Number of Years = </td>
+            <td><input ng-model="N" /></td>
+          </tr>
+          <tr>
+            <td>Rate of Interest = </td>
+            <td><input ng-model="R" /></td>
+          </tr>
+        </table>
+        <br>
+        <b class="result">Compound Interest = {{calculate2()}}</b>
+      </div>
+
+  </div>
+  <div ng-switch-default>
+     <h1>Welcome to this Page</h1>
+     <h2>Here, we are going to switch between different layouts</h2>
+     <h2>Simple interest or Compound interest</h2>
+  </div>
+</div>
+<hr>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('SICtrl', function ($scope) {
+$scope.P=0;
+$scope.N=0;
+$scope.R=0;
+$scope.calculate1 = function () {
+  return ($scope.P*$scope.N*$scope.R)/100;
+}
+
+});
+
+app.controller('CICtrl', function ($scope) {
+$scope.P=0;
+$scope.N=0;
+$scope.R=0;
+$scope.calculate2 = function () {
+  return (($scope.P*((1+($scope.R/100))**$scope.N))-$scope.P);
+}
+
+});
+
+</script>
+</body>
+</html>
